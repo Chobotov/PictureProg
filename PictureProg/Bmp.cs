@@ -12,7 +12,5 @@ namespace PictureProg
     {
         public Bitmap original_bmp;
         public Bitmap bmp;
-        public List<int> x;
-        public List<int> y;
     }
 }
