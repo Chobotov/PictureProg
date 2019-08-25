@@ -217,14 +217,14 @@ namespace PictureProg
 
         private void mg1_Click(object sender, EventArgs e)
         {
-            img_frst = new Form2(bmp_first,alpha,beta);
+            img_frst = new Form2(bmp_first);
             img_frst.Show();
         }
 
 
         private void mg2_Click(object sender, EventArgs e)
         {
-            img_scnd = new Form2(bmp_second,alpha,beta);
+            img_scnd = new Form2(bmp_second);
             img_scnd.Show();
         }
 

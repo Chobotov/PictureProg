@@ -15,18 +15,13 @@ namespace PictureProg
     {
         private Bmp bmp;
         private int step;
-        private double alpha, beta;
-        public List<int> xlist;
-        public List<int> ylist;
 
-        public Form2(Bmp bmp,double alpha,double beta)
+        public Form2(Bmp bmp)
         {
             InitializeComponent();
             this.bmp = bmp;
-            this.alpha = alpha;
-            this.beta = beta;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox1.Image = (Image)this.bmp.bmp;
+            pictureBox1.Image = this.bmp.bmp;
             pictureBox1.Refresh();
         }
         private void mouse_button(object sender, MouseEventArgs ms)
@@ -37,17 +32,7 @@ namespace PictureProg
                 {
                     step = trackBar1.Value;
                     Color color = bmp.bmp.GetPixel(ms.X, ms.Y);
-                    Color clr = Color.FromArgb(
-                        int.Parse(textBox2.Text),//Alpha
-                        int.Parse(textBox3.Text),//Red
-                        int.Parse(textBox4.Text),//Blue
-                        int.Parse(textBox5.Text));//Green
-                    Debug.WriteLine($"Альфа:{int.Parse(textBox2.Text)}\n " +
-                        $"Red:{int.Parse(textBox3.Text)}\n" +
-                        $"Blue{int.Parse(textBox4.Text)}\n" +
-                        $"Green{int.Parse(textBox5.Text)}");
                     Fill fl = new Fill();
-                    Debug.WriteLine($"{BackColor.A}, {BackColor.R} , {BackColor.G}, {BackColor.B}");
                     fl.FloodFill(step,bmp, bmp.bmp, ms.X, ms.Y, Color.Red);
                     pictureBox1.Refresh();
                 }
@@ -76,6 +61,11 @@ namespace PictureProg
                 trackBar1.Value = int.Parse(textBox1.Text);
             }
             catch (Exception ex) { }
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.MouseClick += mouse_button;
         }
     }
 }

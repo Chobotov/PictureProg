@@ -17,15 +17,11 @@ namespace PictureProg
         {
             LinkedList<Point> check = new LinkedList<Point>();
             Color floodFrom = bitmap.GetPixel(x, y); // Основной цвет,который ищется
-            bmp.x = new List<int>();
-            bmp.y = new List<int>();
-            bmp.x.Add(x);
-            bmp.y.Add(y);
             int percent = 3; // Один процент от 255
             if (floodFrom != color)
             {
                 check.AddLast(new Point(x, y));
-                while (check.Count < 1000)//Поставил ограничение в 1000 значений на клик,потому что при while(check.Count > 0) часто возникают утечки памяти
+                while (check.Count < 5000)//Поставил ограничение в 1000 значений на клик,потому что при while(check.Count > 0) часто возникают утечки памяти
                 {
                     Point cur = check.First.Value;
                     check.RemoveFirst();
@@ -61,8 +57,6 @@ namespace PictureProg
                             {
                                 check.AddLast(next);
                                 bitmap.SetPixel(next.X, next.Y, color);
-                                bmp.x.Add(next.X);
-                                bmp.y.Add(next.Y);
                             }
                         }
                     }

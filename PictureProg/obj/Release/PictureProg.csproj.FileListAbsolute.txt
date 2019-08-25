@@ -1,0 +1,11 @@
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Release\PictureProg.exe.config
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Release\PictureProg.exe
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Release\PictureProg.pdb
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.csprojAssemblyReference.cache
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.Form1.resources
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.Form2.resources
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.Properties.Resources.resources
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.csproj.GenerateResource.cache
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.csproj.CoreCompileInputs.cache
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.exe
+C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Release\PictureProg.pdb
