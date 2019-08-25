@@ -24,6 +24,7 @@ namespace PictureProg
             pictureBox1.Image = this.bmp.bmp;
             pictureBox1.Refresh();
         }
+        //Запуск волнового алгоритма для выделения участков изображения при нажатии ЛКМ
         private void mouse_button(object sender, MouseEventArgs ms)
         {
             try
@@ -39,7 +40,7 @@ namespace PictureProg
             }
             catch (Exception e) { Debug.WriteLine(e); };
         }
-
+        //Текстовый вврд чувствительности
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             try
@@ -49,6 +50,7 @@ namespace PictureProg
             catch (Exception ex) { }
         }
 
+        //Ползунок чувтсвительности
         private void TrackBar1_Scroll(object sender, EventArgs e)
         {
             textBox1.Text = trackBar1.Value.ToString();
@@ -66,6 +68,14 @@ namespace PictureProg
         private void PictureBox1_Click(object sender, EventArgs e)
         {
             pictureBox1.MouseClick += mouse_button;
+        }
+
+        //Очищает изображение от выделенных участков
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            bmp.bmp = new Bitmap(bmp.original_bmp);
+            pictureBox1.Image = bmp.bmp;
+            pictureBox1.Refresh();
         }
     }
 }

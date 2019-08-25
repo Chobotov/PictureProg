@@ -192,10 +192,9 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 16);
+            this.pictureBox3.Location = new System.Drawing.Point(6, 14);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(304, 239);
+            this.pictureBox3.Size = new System.Drawing.Size(294, 238);
             this.pictureBox3.TabIndex = 18;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
@@ -211,9 +210,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pictureBox3);
-            this.groupBox1.Location = new System.Drawing.Point(409, 13);
+            this.groupBox1.Location = new System.Drawing.Point(416, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 258);
+            this.groupBox1.Size = new System.Drawing.Size(306, 258);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             // 

@@ -34,6 +34,7 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -52,6 +53,7 @@
             // groupBox2
             // 
             this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.trackBar1);
             this.groupBox2.Controls.Add(this.label1);
@@ -76,7 +78,7 @@
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 546);
+            this.trackBar1.Size = new System.Drawing.Size(45, 469);
             this.trackBar1.TabIndex = 5;
             this.trackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
             // 
@@ -100,6 +102,16 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouse_button);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(19, 530);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 54);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Очистить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Form2
             // 
@@ -127,5 +139,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

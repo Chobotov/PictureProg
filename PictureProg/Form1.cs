@@ -13,7 +13,15 @@ using System.Diagnostics;
 namespace PictureProg
 {
     public partial class Form1 : Form
-    {   
+    {
+        private Form2 img_frst, img_scnd;
+        private Bmp bmp_first;
+        private Bmp bmp_second;
+        private Bmp bmp_final;
+        private double alpha;
+        private double beta;
+        private bool parts;
+        private string filepathfirst, filepathsecond;
         public Form1()
         {
             InitializeComponent();
@@ -23,14 +31,6 @@ namespace PictureProg
             button6.Enabled = false;
             parts = false;
         }
-        private Form2 img_frst, img_scnd;
-        private Bmp bmp_first;
-        private Bmp bmp_second;
-        private Bmp bmp_final;
-        private double alpha;
-        private double beta;
-        private bool parts;
-        private string filepathfirst,filepathsecond;
 
         #region Пустые слушатели
 
@@ -78,7 +78,9 @@ namespace PictureProg
             mg2.Enabled = false;
         }
         #endregion
-
+        ///<summary>
+        ///ВКЛ/ОТКЛ кнопок действий с изображенииями
+        ///</summary>
         private void EnableButtons()
         {
             if (Functions.SizeImage(bmp_first.bmp,bmp_second.bmp))
@@ -215,19 +217,27 @@ namespace PictureProg
             if (bmp_final != null) Functions.DataImage(textbox6, bmp_final.bmp, alpha, beta);
         }
 
+        ///<summary>
+        ///Кнопка открытия окна для выделения участков первого изображения
+        ///</summary>
         private void mg1_Click(object sender, EventArgs e)
         {
             img_frst = new Form2(bmp_first);
             img_frst.Show();
         }
 
-
+        ///<summary>
+        ///Кнопка открытия окна для выделения участков второго изображения
+        ///</summary>
         private void mg2_Click(object sender, EventArgs e)
         {
             img_scnd = new Form2(bmp_second);
             img_scnd.Show();
         }
 
+        ///<summary
+        ///ВКЛ/ОТКЛ режима выделения
+        ///</summary>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked && bmp_first != null && bmp_second != null)
@@ -244,6 +254,9 @@ namespace PictureProg
             }
         }
 
+        /// <summary>
+        /// Считывание заданных коэфф альфа и бета
+        /// </summary>
         private void AlphaBeta()
         {
             try
