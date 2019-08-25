@@ -21,7 +21,7 @@ namespace PictureProg
             if (floodFrom != color)
             {
                 check.AddLast(new Point(x, y));
-                while (check.Count < 5000)//Поставил ограничение в 1000 значений на клик,потому что при while(check.Count > 0) часто возникают утечки памяти
+                while (check.Count < 5000)//Поставил ограничение в 5000 значений на клик,потому что при while(check.Count > 0) часто возникают утечки памяти
                 {
                     Point cur = check.First.Value;
                     check.RemoveFirst();
