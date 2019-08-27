@@ -15,61 +15,121 @@ namespace PictureProg
     {
         public void FloodFill(int step, Bitmap bitmap, int x, int y, Color color)
         {
+            //Debug.WriteLine("Клик");
+            BitmapData data = bitmap.LockBits(
+         new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+         ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            int[] bits = new int[data.Stride / 4 * data.Height];
+            Marshal.Copy(data.Scan0, bits, 0, bits.Length);
+
             LinkedList<Point> check = new LinkedList<Point>();
-            Color floodFrom = bitmap.GetPixel(x, y); // Основной цвет,который ищется
-            int percent = 2; // Один процент от 255
-            if (floodFrom != color)
+            int floodTo = color.ToArgb();
+            int floodFrom = bits[x + y * data.Stride / 4];
+            bits[x + y * data.Stride / 4] = floodTo;
+
+            if (floodFrom != floodTo)
             {
                 check.AddLast(new Point(x, y));
-                while (check.Count>0)//Поставил ограничение в 5000 значений на клик,потому что при while(check.Count > 0) часто возникают утечки памяти
+                while (check.Count > 0)
                 {
+                    //Debug.WriteLine(check.Count);
                     Point cur = check.First.Value;
                     check.RemoveFirst();
-                    foreach (Point off in new Point[]
-                    {
-                        new Point(0, -1), new Point(0, 1),
-                        new Point(-1, 0), new Point(1, 0)
-                    })
+
+                    foreach (Point off in new Point[] {
+                new Point(0, -1), new Point(0, 1),
+                new Point(-1, 0), new Point(1, 0)})
                     {
                         Point next = new Point(cur.X + off.X, cur.Y + off.Y);
                         if (next.X >= 0 && next.Y >= 0 &&
-                            next.X < bitmap.Width &&
-                            next.Y < bitmap.Height)
+                            next.X < data.Width &&
+                            next.Y < data.Height)
                         {
-                            bool Amax = bitmap.GetPixel(next.X, next.Y).A >= floodFrom.A - percent * step;
-                            bool Rmax = bitmap.GetPixel(next.X, next.Y).R >= floodFrom.R - percent * step;
-                            bool Gmax = bitmap.GetPixel(next.X, next.Y).G >= floodFrom.G - percent * step;
-                            bool Bmax = bitmap.GetPixel(next.X, next.Y).B >= floodFrom.B - percent * step;
-                            bool Amin = bitmap.GetPixel(next.X, next.Y).A <= floodFrom.A + percent * step;
-                            bool Rmin = bitmap.GetPixel(next.X, next.Y).R <= floodFrom.R + percent * step;
-                            bool Gmin = bitmap.GetPixel(next.X, next.Y).G <= floodFrom.G + percent * step;
-                            bool Bmin = bitmap.GetPixel(next.X, next.Y).B <= floodFrom.B + percent * step;
-                            if ( bitmap.GetPixel(next.X, next.Y) == floodFrom ||                           
-                            Amax &&
-                            Amin &&
-                            Rmax &&
-                            Rmin &&
-                            Gmax &&
-                            Gmin &&
-                            Bmax &&
-                            Bmin)
+                            if (bits[next.X + next.Y * data.Stride / 4] == floodFrom || 
+                                areColorsSimmilar(step,Color.FromArgb(bits[next.X + next.Y * data.Stride / 4]),Color.FromArgb(floodFrom)))
                             {
                                 check.AddLast(next);
-                                bitmap.SetPixel(next.X, next.Y, color);
-                                Debug.WriteLine((bitmap.GetPixel(next.X, next.Y) == floodFrom).ToString,
-                            Amax.ToString,
-                            Amin.ToString,
-                            Rmax.ToString,
-                            Rmin.ToString,
-                            Gmax.ToString,
-                            Gmin.ToString,
-                            Bmax &&
-                            Bmin);
+                                bits[next.X + next.Y * data.Stride / 4] = floodTo;
                             }
                         }
                     }
                 }
             }
+
+            Marshal.Copy(bits, 0, data.Scan0, bits.Length);
+            bitmap.UnlockBits(data);
         }
+
+        /*
+        private bool areColorsSimmilar(int step, Color bmb, Color clr)
+        {
+            int percent = 3;
+            bool A = bmb.A >= clr.A - percent * step;
+            bool R = bmb.R >= clr.R - percent * step;
+            bool G = bmb.G >= clr.G - percent * step;
+            bool B = bmb.B >= clr.B - percent * step;
+            bool a = bmb.A <= clr.A + percent * step;
+            bool r = bmb.R <= clr.R + percent * step;
+            bool g = bmb.G <= clr.G + percent * step;
+            bool b = bmb.B <= clr.B + percent * step;
+            if (A && a && R && r && G && g && B && b)
+                return true;
+            else
+                return false;
+        }
+        */
+        /*
+         BitmapData data = bitmap.LockBits(
+        new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+        ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+    int[] bits = new int[data.Stride / 4 * data.Height];
+    Marshal.Copy(data.Scan0, bits, 0, bits.Length);
+
+    LinkedList<Point> check = new LinkedList<Point>();
+    int floodTo = color.ToArgb();
+    int floodFrom = bits[x + y * data.Stride / 4];
+    bits[x + y * data.Stride / 4] = floodTo;
+
+    if (floodFrom != floodTo)
+    {
+        check.AddLast(new Point(x, y));
+        while (check.Count > 0)
+        {
+            Point cur = check.First.Value;
+            check.RemoveFirst();
+
+            foreach (Point off in new Point[] {
+                new Point(0, -1), new Point(0, 1), 
+                new Point(-1, 0), new Point(1, 0)})
+            {
+                Point next = new Point(cur.X + off.X, cur.Y + off.Y);
+                if (next.X >= 0 && next.Y >= 0 &&
+                    next.X < data.Width &&
+                    next.Y < data.Height)
+                {
+                    if (bits[next.X + next.Y * data.Stride / 4] == floodFrom)
+                    {
+                        check.AddLast(next);
+                        bits[next.X + next.Y * data.Stride / 4] = floodTo;
+                    }
+                }
+            }
+        }
+    }
+
+    Marshal.Copy(bits, 0, data.Scan0, bits.Length);
+    bitmap.UnlockBits(data); 
+         */
+
+        
+        private bool areColorsSimmilar(int step, Color bmb, Color clr)
+        {
+            int differenceR = Math.Abs(bmb.R-clr.R);
+            int differenceG = Math.Abs(bmb.G-clr.G);
+            int differenceB = Math.Abs(bmb.B-clr.B);
+            int maxDifference = Math.Max(Math.Max(differenceR,differenceG),differenceB);
+            return maxDifference < step ? true : false;
+        }
+        
     }
 }

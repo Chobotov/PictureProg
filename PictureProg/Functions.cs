@@ -150,33 +150,33 @@ namespace PictureProg
 
         public static void AllImage(int step,Bitmap bmb, Color clr)
         {
-            int percent = 3;
             for (int i = 0; i < bmb.Height; i++)
             {
                 for(int j = 0; j < bmb.Width; j++)
                 {
-                    bool A = bmb.GetPixel(j, i).A >= clr.A - percent * step;
-                    bool R = bmb.GetPixel(j, i).R >= clr.R - percent * step;
-                    bool G = bmb.GetPixel(j, i).G >= clr.G - percent * step;
-                    bool B = bmb.GetPixel(j, i).B >= clr.B - percent * step;
-                    bool a = bmb.GetPixel(j, i).A <= clr.A + percent * step;
-                    bool r = bmb.GetPixel(j, i).R <= clr.R + percent * step;
-                    bool g = bmb.GetPixel(j, i).G <= clr.G + percent * step;
-                    bool b = bmb.GetPixel(j, i).B <= clr.B + percent * step;
-                    if (bmb.GetPixel(j,i) == clr || 
-                        A &&
-                        a &&
-                        R &&
-                        r &&
-                        G &&
-                        g &&
-                        B &&
-                        b)
+                    Color clr1 = bmb.GetPixel(j, i);
+                    if (bmb.GetPixel(j,i) == clr || areColorsSimmilar(step,clr1,clr))   
                     {
                         bmb.SetPixel(j,i,Color.Red);
                     }
                 }
             }
+        }
+        public static bool areColorsSimmilar(int step, Color bmb, Color clr)
+        {
+            int percent = 3;
+            //bool A = bmb.A >= clr.A - percent * step;
+            bool R = bmb.R >= clr.R - percent * step;
+            bool G = bmb.G >= clr.G - percent * step;
+            bool B = bmb.B >= clr.B - percent * step;
+            //bool a = bmb.A <= clr.A + percent * step;
+            bool r = bmb.R <= clr.R + percent * step;
+            bool g = bmb.G <= clr.G + percent * step;
+            bool b = bmb.B <= clr.B + percent * step;
+            if (R && r && G && g && B && b)
+                return true;
+            else
+                return false;
         }
 
     }
