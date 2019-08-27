@@ -34,7 +34,13 @@ namespace PictureProg
                     step = trackBar1.Value;
                     Color color = bmp.bmp.GetPixel(ms.X, ms.Y);
                     Fill fl = new Fill();
-                    fl.FloodFill(step,bmp, bmp.bmp, ms.X, ms.Y, Color.Red);
+                    fl.FloodFill(step, bmp.bmp, ms.X, ms.Y, Color.Red);
+                    pictureBox1.Refresh();
+                }
+                if(ms.Button == MouseButtons.Right)
+                {
+                    step = trackBar1.Value;
+                    Functions.AllImage(step,bmp.bmp, bmp.bmp.GetPixel(ms.X, ms.Y));
                     pictureBox1.Refresh();
                 }
             }

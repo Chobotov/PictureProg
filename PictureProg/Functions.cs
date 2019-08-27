@@ -92,7 +92,7 @@ namespace PictureProg
                         bmp_second.bmp.GetPixel(x, y).G == clr.G &&
                         bmp_second.bmp.GetPixel(x, y).B == clr.B))
                     {
-                        //Пропускаем
+                        
                     }
                     else
                         bmp_final.bmp.SetPixel(x, y, Color.FromArgb(Math.Max((pixelMainR - pixelLastR), 0), Math.Max((pixelMainG - pixelLastG), 0), Math.Max((pixelMainB - pixelLastB), 0)));
@@ -112,6 +112,7 @@ namespace PictureProg
             int blackpixel = 0;
             int whitepixel = 0;
             int graypixel = 0;
+            int RedPixel = 0;
             for (int y = 0; y < bmp.Height; y++)
             {
                 for (int x = 0; x < bmp.Width; x++)
@@ -129,20 +130,53 @@ namespace PictureProg
                     if (pixelR > 255 * (1 - beta) && pixelR < 255 * (1 - alpha) && 
                         pixelG > 255 * (1 - beta) && pixelG < 255 * (1 - alpha) && 
                         pixelB > 255 * (1 - beta) && pixelB < 255 * (1 - alpha)) graypixel++;
+                    if (pixelR == Color.Red.R && pixelG == Color.Red.G && pixelB == Color.Red.B)
+                        RedPixel += 1;
                 }
             }
-        text.Text = "Материал = "
-            + blackpixel + ", "
-            + (100 * (double) blackpixel / (bmp.Height * bmp.Width)).ToString("0.000")
-            + "% "
-            + "\n"
-            + "Переходный материал = "
-            + graypixel
-            + ", " + (100 * (double) graypixel / (bmp.Height * bmp.Width)).ToString("0.000")
+            text.Text = "Материал = "
+                + blackpixel + ", "
+                + (100 * (double)blackpixel / ((bmp.Height * bmp.Width) - RedPixel)).ToString("0.000")
+                + "% "
+                + "\n"
+                + "Переходный материал = "
+                + graypixel
+                + ", " + (100 * (double)graypixel / ((bmp.Height * bmp.Width) - RedPixel)).ToString("0.000")
             + "% " + "\n" + "Пустота = "
             + whitepixel + ", "
-            + (100 * (double) whitepixel / (bmp.Height * bmp.Width)).ToString("0.000")
+            + (100 * (double)whitepixel / ((bmp.Height * bmp.Width) - RedPixel)).ToString("0.000")
             + "% ";
+        }
+
+        public static void AllImage(int step,Bitmap bmb, Color clr)
+        {
+            int percent = 3;
+            for (int i = 0; i < bmb.Height; i++)
+            {
+                for(int j = 0; j < bmb.Width; j++)
+                {
+                    bool A = bmb.GetPixel(j, i).A >= clr.A - percent * step;
+                    bool R = bmb.GetPixel(j, i).R >= clr.R - percent * step;
+                    bool G = bmb.GetPixel(j, i).G >= clr.G - percent * step;
+                    bool B = bmb.GetPixel(j, i).B >= clr.B - percent * step;
+                    bool a = bmb.GetPixel(j, i).A <= clr.A + percent * step;
+                    bool r = bmb.GetPixel(j, i).R <= clr.R + percent * step;
+                    bool g = bmb.GetPixel(j, i).G <= clr.G + percent * step;
+                    bool b = bmb.GetPixel(j, i).B <= clr.B + percent * step;
+                    if (bmb.GetPixel(j,i) == clr || 
+                        A &&
+                        a &&
+                        R &&
+                        r &&
+                        G &&
+                        g &&
+                        B &&
+                        b)
+                    {
+                        bmb.SetPixel(j,i,Color.Red);
+                    }
+                }
+            }
         }
 
     }
