@@ -4,7 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,30 +26,46 @@ namespace PictureProg
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox1.Image = this.bmp.bmp;
             pictureBox1.Refresh();
+            chart1.Titles.Add("Время работы(мс)");
+            chart2.Titles.Add("Кол-во тактов");
         }
         //Запуск волнового алгоритма для выделения участков изображения при нажатии ЛКМ
         private void mouse_button(object sender, MouseEventArgs ms)
         {
-            try
+            switch (ms.Button)
             {
-                if (ms.Button == MouseButtons.Left)
-                {
+                case MouseButtons.Left:
                     step = trackBar1.Value;
                     Color color = bmp.bmp.GetPixel(ms.X, ms.Y);
                     Fill fl = new Fill();
+                    Stopwatch st = new Stopwatch();
+                    st.Start();
                     fl.FloodFill(step, bmp.bmp, ms.X, ms.Y, Color.Red);
+                    st.Stop();
+                    label6.Text = ($"Чувствительность : {step}");
+                    label2.Text = ($"Время : {st.Elapsed}");
+                    label3.Text = ($"Тик : {st.ElapsedTicks}");
                     pictureBox1.Refresh();
-                }
-                if(ms.Button == MouseButtons.Right)
-                {
+                    chart1.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedMilliseconds);
+                    chart2.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedTicks);
+                    break;
+
+                case MouseButtons.Right:
                     step = trackBar1.Value;
-                    Functions.AllImage(step,bmp.bmp, bmp.bmp.GetPixel(ms.X, ms.Y));
+                    st = new Stopwatch();
+                    st.Start();
+                    Functions.AllImage(step, bmp.bmp, bmp.bmp.GetPixel(ms.X, ms.Y));
+                    st.Stop();
+                    label7.Text = ($"Чувствительность : {step}");
+                    label4.Text = ($"Время : {st.Elapsed}");
+                    label5.Text = ($"Тик : {st.ElapsedTicks}");
                     pictureBox1.Refresh();
-                }
+                    chart1.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedMilliseconds);
+                    chart2.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedTicks);
+                    break;
             }
-            catch (Exception e) { Debug.WriteLine(e); };
         }
-        //Текстовый вврд чувствительности
+        //Текстовый ввод чувствительности
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             try
@@ -82,6 +101,23 @@ namespace PictureProg
             bmp.bmp = new Bitmap(bmp.original_bmp);
             pictureBox1.Image = bmp.bmp;
             pictureBox1.Refresh();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            chart1.Series["Волновой алгоритм"].Points.Clear();
+            chart2.Series["Волновой алгоритм"].Points.Clear();
+
+            chart1.Series["Проход по всему изображению"].Points.Clear();
+            chart2.Series["Проход по всему изображению"].Points.Clear();
+
+            label6.Text = ($"Чувствительность : ");
+            label2.Text = ($"Время : ");
+            label3.Text = ($"Тик : ");
+
+            label7.Text = ($"Чувствительность : ");
+            label4.Text = ($"Время : ");
+            label5.Text = ($"Тик : ");
         }
     }
 }

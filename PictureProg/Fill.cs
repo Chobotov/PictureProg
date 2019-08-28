@@ -15,7 +15,6 @@ namespace PictureProg
     {
         public void FloodFill(int step, Bitmap bitmap, int x, int y, Color color)
         {
-            //Debug.WriteLine("Клик");
             BitmapData data = bitmap.LockBits(
          new Rectangle(0, 0, bitmap.Width, bitmap.Height),
          ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
@@ -32,7 +31,6 @@ namespace PictureProg
                 check.AddLast(new Point(x, y));
                 while (check.Count > 0)
                 {
-                    //Debug.WriteLine(check.Count);
                     Point cur = check.First.Value;
                     check.RemoveFirst();
 

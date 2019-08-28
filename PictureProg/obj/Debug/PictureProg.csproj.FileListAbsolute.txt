@@ -1,7 +1,6 @@
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Debug\PictureProg.exe.config
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Debug\PictureProg.exe
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\bin\Debug\PictureProg.pdb
-C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.csprojAssemblyReference.cache
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.Form1.resources
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.Properties.Resources.resources
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.csproj.GenerateResource.cache
