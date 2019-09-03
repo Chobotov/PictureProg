@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PictureProg
@@ -20,12 +15,10 @@ namespace PictureProg
             int bmp_height = img.Height;
             int bmp_width = img.Width;
 
-            Bitmap mimg = new Bitmap(img, bt.Width, bt.Height);
-
             bt.BackgroundImage = img;
             bt.BackgroundImageLayout = ImageLayout.Stretch;
 
-            text.Text = ($"{ bmp_height } x { bmp_width }");
+            text.Text = ($"{ bmp_width } x { bmp_height }");
         }
         
         ///<summary>
@@ -73,34 +66,34 @@ namespace PictureProg
         public static void MinusParts(PictureBox box, Color clr, Bmp bmp_first, Bmp bmp_second,Bmp bmp_final)
         {
             //Заполнение изображения пикселями 
-            for (int y = 0; y < bmp_first.bmp.Height; y++)
+            for (int y = 0; y < bmp_first.EditBmp.Height; y++)
             {
-                for (int x = 0; x < bmp_first.bmp.Width; x++)
+                for (int x = 0; x < bmp_first.EditBmp.Width; x++)
                 {
-                    int pixelMainR = Convert.ToInt32(bmp_first.bmp.GetPixel(x, y).R);
-                    int pixelLastR = Convert.ToInt32(bmp_second.bmp.GetPixel(x, y).R);
+                    int pixelMainR = Convert.ToInt32(bmp_first.EditBmp.GetPixel(x, y).R);
+                    int pixelLastR = Convert.ToInt32(bmp_second.EditBmp.GetPixel(x, y).R);
 
-                    int pixelMainG = Convert.ToInt32(bmp_first.bmp.GetPixel(x, y).G);
-                    int pixelLastG = Convert.ToInt32(bmp_second.bmp.GetPixel(x, y).G);
+                    int pixelMainG = Convert.ToInt32(bmp_first.EditBmp.GetPixel(x, y).G);
+                    int pixelLastG = Convert.ToInt32(bmp_second.EditBmp.GetPixel(x, y).G);
 
-                    int pixelMainB = Convert.ToInt32(bmp_first.bmp.GetPixel(x, y).B);
-                    int pixelLastB = Convert.ToInt32(bmp_second.bmp.GetPixel(x, y).B);
-                    if (bmp_first.bmp.GetPixel(x, y).R == clr.R &&
-                        bmp_first.bmp.GetPixel(x, y).G == clr.G &&
-                        bmp_first.bmp.GetPixel(x, y).B == clr.B &&
-                        (bmp_second.bmp.GetPixel(x, y).R == clr.R &&
-                        bmp_second.bmp.GetPixel(x, y).G == clr.G &&
-                        bmp_second.bmp.GetPixel(x, y).B == clr.B))
+                    int pixelMainB = Convert.ToInt32(bmp_first.EditBmp.GetPixel(x, y).B);
+                    int pixelLastB = Convert.ToInt32(bmp_second.EditBmp.GetPixel(x, y).B);
+                    if (bmp_first.EditBmp.GetPixel(x, y).R == clr.R &&
+                        bmp_first.EditBmp.GetPixel(x, y).G == clr.G &&
+                        bmp_first.EditBmp.GetPixel(x, y).B == clr.B &&
+                        (bmp_second.EditBmp.GetPixel(x, y).R == clr.R &&
+                        bmp_second.EditBmp.GetPixel(x, y).G == clr.G &&
+                        bmp_second.EditBmp.GetPixel(x, y).B == clr.B))
                     {
                         
                     }
                     else
-                        bmp_final.bmp.SetPixel(x, y, Color.FromArgb(Math.Max((pixelMainR - pixelLastR), 0), Math.Max((pixelMainG - pixelLastG), 0), Math.Max((pixelMainB - pixelLastB), 0)));
+                        bmp_final.EditBmp.SetPixel(x, y, Color.FromArgb(Math.Max((pixelMainR - pixelLastR), 0), Math.Max((pixelMainG - pixelLastG), 0), Math.Max((pixelMainB - pixelLastB), 0)));
                 }
             }
-            bmp_final.bmp.MakeTransparent(Color.Red);
+            bmp_final.EditBmp.MakeTransparent(Color.Red);
             box.SizeMode = PictureBoxSizeMode.StretchImage;
-            box.Image = (Image)bmp_final.bmp;
+            box.Image = (Image)bmp_final.EditBmp;
         }
 
         ///<summary>
@@ -162,21 +155,14 @@ namespace PictureProg
                 }
             }
         }
-        public static bool areColorsSimmilar(int step, Color bmb, Color clr)
+
+        private static bool areColorsSimmilar(int step, Color bmb, Color clr)
         {
-            int percent = 3;
-            //bool A = bmb.A >= clr.A - percent * step;
-            bool R = bmb.R >= clr.R - percent * step;
-            bool G = bmb.G >= clr.G - percent * step;
-            bool B = bmb.B >= clr.B - percent * step;
-            //bool a = bmb.A <= clr.A + percent * step;
-            bool r = bmb.R <= clr.R + percent * step;
-            bool g = bmb.G <= clr.G + percent * step;
-            bool b = bmb.B <= clr.B + percent * step;
-            if (R && r && G && g && B && b)
-                return true;
-            else
-                return false;
+            int differenceR = Math.Abs(bmb.R - clr.R);
+            int differenceG = Math.Abs(bmb.G - clr.G);
+            int differenceB = Math.Abs(bmb.B - clr.B);
+            int maxDifference = Math.Max(Math.Max(differenceR, differenceG), differenceB);
+            return maxDifference < step ? true : false;
         }
 
     }

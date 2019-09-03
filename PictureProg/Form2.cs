@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PictureProg
@@ -23,43 +14,39 @@ namespace PictureProg
         {
             InitializeComponent();
             this.bmp = bmp;
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox1.Image = this.bmp.bmp;
-            pictureBox1.Refresh();
+            this.bmp.StepBackBmp = new Bitmap(bmp.EditBmp);
+            SetImage();
             chart1.Titles.Add("Время работы(мс)");
             chart2.Titles.Add("Кол-во тактов");
         }
-        //Запуск волнового алгоритма для выделения участков изображения при нажатии ЛКМ
+        //Запуск волнового алгоритма для выделения участков изображения при нажатии ЛКМ и алгоритма полного прохода ПКМ
         private void mouse_button(object sender, MouseEventArgs ms)
         {
             switch (ms.Button)
             {
                 case MouseButtons.Left:
+                    bmp.StepBackBmp = new Bitmap(bmp.EditBmp);
                     step = trackBar1.Value;
-                    Color color = bmp.bmp.GetPixel(ms.X, ms.Y);
                     Fill fl = new Fill();
                     Stopwatch st = new Stopwatch();
                     st.Start();
-                    fl.FloodFill(step, bmp.bmp, ms.X, ms.Y, Color.Red);
+                    fl.FloodFill(step, bmp.EditBmp, ms.X, ms.Y, Color.Red);
                     st.Stop();
-                    label6.Text = ($"Чувствительность : {step}");
-                    label2.Text = ($"Время : {st.Elapsed}");
-                    label3.Text = ($"Тик : {st.ElapsedTicks}");
-                    pictureBox1.Refresh();
+                    SetImage();
+                    SetStatistic(label6, st);
                     chart1.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedMilliseconds);
                     chart2.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedTicks);
                     break;
 
                 case MouseButtons.Right:
+                    bmp.StepBackBmp = new Bitmap(bmp.EditBmp);
                     step = trackBar1.Value;
                     st = new Stopwatch();
                     st.Start();
-                    Functions.AllImage(step, bmp.bmp, bmp.bmp.GetPixel(ms.X, ms.Y));
+                    Functions.AllImage(step, bmp.EditBmp, bmp.EditBmp.GetPixel(ms.X, ms.Y));
                     st.Stop();
-                    label7.Text = ($"Чувствительность : {step}");
-                    label4.Text = ($"Время : {st.Elapsed}");
-                    label5.Text = ($"Тик : {st.ElapsedTicks}");
-                    pictureBox1.Refresh();
+                    SetImage();
+                    SetStatistic(label7, st);
                     chart1.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedMilliseconds);
                     chart2.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedTicks);
                     break;
@@ -98,8 +85,8 @@ namespace PictureProg
         //Очищает изображение от выделенных участков
         private void Button1_Click(object sender, EventArgs e)
         {
-            bmp.bmp = new Bitmap(bmp.original_bmp);
-            pictureBox1.Image = bmp.bmp;
+            bmp.EditBmp = new Bitmap(bmp.original_bmp);
+            pictureBox1.Image = bmp.EditBmp;
             pictureBox1.Refresh();
         }
 
@@ -118,6 +105,26 @@ namespace PictureProg
             label7.Text = ($"Чувствительность : ");
             label4.Text = ($"Время : ");
             label5.Text = ($"Тик : ");
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            bmp.EditBmp = new Bitmap(bmp.StepBackBmp);
+            SetImage();
+        }
+
+        private void SetImage()
+        {
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox1.Image = this.bmp.EditBmp;
+            pictureBox1.Refresh();
+        }
+
+        private void SetStatistic(Label l, Stopwatch st)
+        {
+            l.Text = ($"Чувствительность : {step}");
+            l.Text = ($"Время : {st.Elapsed}");
+            l.Text = ($"Тик : {st.ElapsedTicks}");
         }
     }
 }

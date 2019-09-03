@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
 
 namespace PictureProg
 {
@@ -83,7 +75,7 @@ namespace PictureProg
         ///</summary>
         private void EnableButtons()
         {
-            if (Functions.SizeImage(bmp_first.bmp,bmp_second.bmp))
+            if (Functions.SizeImage(bmp_first.EditBmp, bmp_second.EditBmp))
             {
                 textBox3.Text = "Размеры изображений одинаковы";
                 button3.Enabled = true;
@@ -114,10 +106,10 @@ namespace PictureProg
             {
                 AlphaBeta();
                 filepathfirst = openFileDialog1.FileName;
-                bmp_first.bmp = new Bitmap(filepathfirst);
+                bmp_first.EditBmp = new Bitmap(filepathfirst);
                 bmp_first.original_bmp = new Bitmap(filepathfirst);
                 Functions.ShowImage(filepathfirst, mg1, textBox1);
-                Functions.DataImage(textBox4, bmp_first.bmp, alpha, beta);
+                Functions.DataImage(textBox4, bmp_first.EditBmp, alpha, beta);
                 try
                 {
                     EnableButtons();
@@ -140,10 +132,10 @@ namespace PictureProg
             {
                 AlphaBeta(); 
                 filepathsecond = openFileDialog2.FileName;
-                bmp_second.bmp = new Bitmap(filepathsecond);
+                bmp_second.EditBmp = new Bitmap(filepathsecond);
                 bmp_second.original_bmp = new Bitmap(filepathsecond);
                 Functions.ShowImage(filepathsecond, mg2, textBox2);
-                Functions.DataImage(textBox5, bmp_second.bmp, alpha, beta);
+                Functions.DataImage(textBox5, bmp_second.EditBmp, alpha, beta);
                 try
                 {
                     EnableButtons();
@@ -161,12 +153,12 @@ namespace PictureProg
             {
                 bmp_final = new Bmp();
                 AlphaBeta();
-                bmp_final.bmp = new Bitmap(bmp_first.bmp.Width, bmp_first.bmp.Height);
+                bmp_final.EditBmp = new Bitmap(bmp_first.EditBmp.Width, bmp_first.EditBmp.Height);
                 if (parts==false)
-                    Functions.MinusImage(pictureBox3, bmp_first.bmp, bmp_second.bmp, bmp_final.bmp);
+                    Functions.MinusImage(pictureBox3, bmp_first.EditBmp, bmp_second.EditBmp, bmp_final.EditBmp);
                 else
                     Functions.MinusParts(pictureBox3, Color.Red, bmp_first, bmp_second, bmp_final);
-                Functions.DataImage(textbox6, bmp_final.bmp, alpha, beta);
+                Functions.DataImage(textbox6, bmp_final.EditBmp, alpha, beta);
                 button5.Enabled = true;
             }
             catch (Exception ex) { }
@@ -181,12 +173,12 @@ namespace PictureProg
             {
                 AlphaBeta();
                 bmp_final = new Bmp();
-                bmp_final.bmp = new Bitmap(bmp_first.bmp.Width, bmp_first.bmp.Height);
+                bmp_final.EditBmp = new Bitmap(bmp_first.EditBmp.Width, bmp_first.EditBmp.Height);
                 if (parts==false)
-                    Functions.MinusImage(pictureBox3, bmp_second.bmp, bmp_first.bmp, bmp_final.bmp);
+                    Functions.MinusImage(pictureBox3, bmp_second.EditBmp, bmp_first.EditBmp, bmp_final.EditBmp);
                 else
                     Functions.MinusParts(pictureBox3,Color.Red,bmp_second,bmp_first,bmp_final);
-                Functions.DataImage(textbox6, bmp_final.bmp, alpha, beta);
+                Functions.DataImage(textbox6, bmp_final.EditBmp, alpha, beta);
                 button5.Enabled = true;
             }
             catch (Exception ex) { }
@@ -202,7 +194,7 @@ namespace PictureProg
             save.Title = "Сохранить изображение";
             if (save.ShowDialog() == DialogResult.OK)
             {
-                bmp_final.bmp.Save(save.FileName);
+                bmp_final.EditBmp.Save(save.FileName);
             } 
         }
 
@@ -212,9 +204,9 @@ namespace PictureProg
         private void button6_Click(object sender, EventArgs e)
         {
             AlphaBeta();
-            Functions.DataImage(textBox4, bmp_first.bmp,alpha, beta);
-            Functions.DataImage(textBox5, bmp_second.bmp, alpha, beta);
-            if (bmp_final != null) Functions.DataImage(textbox6, bmp_final.bmp, alpha, beta);
+            Functions.DataImage(textBox4, bmp_first.EditBmp, alpha, beta);
+            Functions.DataImage(textBox5, bmp_second.EditBmp, alpha, beta);
+            if (bmp_final != null) Functions.DataImage(textbox6, bmp_final.EditBmp, alpha, beta);
         }
 
         ///<summary>
@@ -233,6 +225,18 @@ namespace PictureProg
         {
             img_scnd = new Form2(bmp_second);
             img_scnd.Show();
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            bmp_first.EditBmp.MakeTransparent(Color.Red);
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "jpeg image|*.jpg";
+            save.Title = "Сохранить изображение";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                bmp_first.EditBmp.Save(save.FileName);
+            }
         }
 
         ///<summary

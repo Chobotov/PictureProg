@@ -11,6 +11,7 @@ namespace PictureProg
     public class Bmp
     {
         public Bitmap original_bmp;
-        public Bitmap bmp;
+        public Bitmap StepBackBmp;
+        public Bitmap EditBmp;
     }
 }
