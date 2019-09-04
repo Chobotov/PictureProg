@@ -33,7 +33,7 @@ namespace PictureProg
                     fl.FloodFill(step, bmp.EditBmp, ms.X, ms.Y, Color.Red);
                     st.Stop();
                     SetImage();
-                    SetStatistic(label6, st);
+                    SetStatistic(label6, label2, label3, st, step);
                     chart1.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedMilliseconds);
                     chart2.Series["Волновой алгоритм"].Points.AddXY("1",st.ElapsedTicks);
                     break;
@@ -46,7 +46,7 @@ namespace PictureProg
                     Functions.AllImage(step, bmp.EditBmp, bmp.EditBmp.GetPixel(ms.X, ms.Y));
                     st.Stop();
                     SetImage();
-                    SetStatistic(label7, st);
+                    SetStatistic(label7, label4, label5, st, step);
                     chart1.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedMilliseconds);
                     chart2.Series["Проход по всему изображению"].Points.AddXY("2", st.ElapsedTicks);
                     break;
@@ -120,11 +120,11 @@ namespace PictureProg
             pictureBox1.Refresh();
         }
 
-        private void SetStatistic(Label l, Stopwatch st)
+        private void SetStatistic(Label lstep,Label time, Label tik, Stopwatch st , int step)
         {
-            l.Text = ($"Чувствительность : {step}");
-            l.Text = ($"Время : {st.Elapsed}");
-            l.Text = ($"Тик : {st.ElapsedTicks}");
+            lstep.Text = ($"Чувствительность : {step}");
+            time.Text = ($"Время : {st.Elapsed}");
+            tik.Text = ($"Тик : {st.ElapsedTicks}");
         }
     }
 }

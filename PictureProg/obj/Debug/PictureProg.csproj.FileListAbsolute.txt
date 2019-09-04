@@ -8,4 +8,3 @@ C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.csp
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.exe
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.pdb
 C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.Form2.resources
-C:\Users\Chobotov\source\repos\PictureProg\PictureProg\obj\Debug\PictureProg.csprojAssemblyReference.cache
