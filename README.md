@@ -18,15 +18,13 @@ If the image sizes are the same, then you can perform operations such as: subtra
 
 #### Ru
 На главном окне располагаются кнопки для загрузки изображения и текстовые окна, которые выводят считанную информацию о изображения.
+
 При запуске определенной операции, полученное изображение можно увидеть в правой части окна,а ниже располагается полученная информация.
-При нажатии на загруженное изображение вы попадаете на дополнительное окно. В данном окне можно выделить определенные части изображения,чтобы затем производить операции только с этими участками. 
-Справа от рабочей области находится ползунок чувствительности выделения,чем выше ползунок,тем больше цветов будет выделять программа.
 
 #### Eng
 On the main window there are buttons for loading the image and text windows that display the read information about the image.
+
 When you start a specific operation, the resulting image can be seen in the right part of the window, and the received information is located below. 
-When you click on the downloaded image, you get to an additional window. In this window, you can select certain parts of the image, then to perform operations only with these areas.
-To the right of the work area is a slider for the sensitivity of selection, the higher the slider, the more colors the program will highlight.
 
 ![Main Window](https://github.com/Chobotov/PictureProg/blob/master/PictureProg/MainForm.png)
 
@@ -34,10 +32,12 @@ To the right of the work area is a slider for the sensitivity of selection, the 
 
 #### Ru
 При нажатии на загруженное изображение вы попадаете на дополнительное окно. В данном окне можно выделить определенные части изображения,чтобы затем производить операции только с этими участками. 
+
 Справа от рабочей области находится ползунок чувствительности выделения,чем выше ползунок,тем больше цветов будет выделять программа.
 
 #### Eng
 When you click on the downloaded image, you get to an additional window. In this window, you can select certain parts of the image, then to perform operations only with these areas.
+
 To the right of the work area is a slider for the sensitivity of selection, the higher the slider, the more colors the program will highlight.
 ![Magic Stick Window](https://github.com/Chobotov/PictureProg/blob/master/PictureProg/Form2.png)
 
