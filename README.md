@@ -1,10 +1,10 @@
 # PictureProg
 
-####Ru
+#### Ru
 <ru>Программа для вычисления плотности пикселей изображения. Программа позволяет загрузить два изображения и получить информацию о них.
   Если разрешение изображений одинаковое, то вы сможете производить такие операции как: вычитание первого изображения из второго, вычитание второго изображения из первого.</ru>
 
-####Eng
+#### Eng
 <eng>A program for calculating the density of pixels in an image.
 The program allows you to download two images and get information about them.
 
