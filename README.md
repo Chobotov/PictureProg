@@ -39,6 +39,7 @@ When you start a specific operation, the resulting image can be seen in the righ
 When you click on the downloaded image, you get to an additional window. In this window, you can select certain parts of the image, then to perform operations only with these areas.
 
 To the right of the work area is a slider for the sensitivity of selection, the higher the slider, the more colors the program will highlight.
+
 ![Magic Stick Window](https://github.com/Chobotov/PictureProg/blob/master/PictureProg/Form2.png)
 
 ### Output image after subtraction
