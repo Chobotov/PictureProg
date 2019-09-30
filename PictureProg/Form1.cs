@@ -6,7 +6,7 @@ namespace PictureProg
 {
     public partial class Form1 : Form
     {
-        private Form2 img_frst, img_scnd;
+        private Form2 img_first, img_second;
         private Bmp bmp_first;
         private Bmp bmp_second;
         private Bmp bmp_final;
@@ -214,8 +214,8 @@ namespace PictureProg
         ///</summary>
         private void mg1_Click(object sender, EventArgs e)
         {
-            img_frst = new Form2(bmp_first);
-            img_frst.Show();
+            img_first = new Form2(bmp_first);
+            img_first.Show();
         }
 
         ///<summary>
@@ -223,20 +223,8 @@ namespace PictureProg
         ///</summary>
         private void mg2_Click(object sender, EventArgs e)
         {
-            img_scnd = new Form2(bmp_second);
-            img_scnd.Show();
-        }
-
-        private void Button7_Click(object sender, EventArgs e)
-        {
-            bmp_first.EditBmp.MakeTransparent(Color.Red);
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "jpeg image|*.jpg";
-            save.Title = "Сохранить изображение";
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                bmp_first.EditBmp.Save(save.FileName);
-            }
+            img_second = new Form2(bmp_second);
+            img_second.Show();
         }
 
         ///<summary

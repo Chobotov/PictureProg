@@ -62,7 +62,7 @@ namespace PictureProg
             catch (Exception ex) { }
         }
 
-        //Ползунок чувтсвительности
+        //Ползунок чувствительности
         private void TrackBar1_Scroll(object sender, EventArgs e)
         {
             textBox1.Text = trackBar1.Value.ToString();
