@@ -32,6 +32,13 @@ To the right of the work area is a slider for the sensitivity of selection, the 
 
 ### Magic Stick Window
 
+#### Ru
+При нажатии на загруженное изображение вы попадаете на дополнительное окно. В данном окне можно выделить определенные части изображения,чтобы затем производить операции только с этими участками. 
+Справа от рабочей области находится ползунок чувствительности выделения,чем выше ползунок,тем больше цветов будет выделять программа.
+
+#### Eng
+When you click on the downloaded image, you get to an additional window. In this window, you can select certain parts of the image, then to perform operations only with these areas.
+To the right of the work area is a slider for the sensitivity of selection, the higher the slider, the more colors the program will highlight.
 ![Magic Stick Window](https://github.com/Chobotov/PictureProg/blob/master/PictureProg/Form2.png)
 
 ### Output image after subtraction
